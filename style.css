@@ -1,0 +1,232 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+header img.header-image {
+    width: 100%;
+    height: auto;
+}
+
+nav {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+main {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 40px;
+}
+
+#products {
+    margin-bottom: 40px;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.gallery-item {
+    color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: calc(25% - 40px);
+    box-sizing: border-box;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.gallery-item p {
+    margin: 10px 0 0;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.gallery-item button:hover {
+    background-color: #45a049;
+}
+
+#contact {
+    margin-bottom: 40px;
+    
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 5px;
+ 
+}
+
+#contact-form label {
+    font-weight: bold;
+}
+
+#contact-form input,
+
+#contact-form textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#contact-form button {
+    padding: 10px 20px;
+    background-color: #0086f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background-color: #000b60;
+}
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+}
+/* Carrito Styles */
+.cart {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
+.cart-content {
+    padding: 20px;
+}
+
+.cart .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cart .close:hover,
+.cart .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#cart-items {
+    margin-bottom: 20px;
+}
+
+#cart-total {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+footer {
+    text-align: center;
+    color: white;
+    background-color: #2f2f2f;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
