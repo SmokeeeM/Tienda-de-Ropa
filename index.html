@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda de Ropa Goth Street</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-</head>
-<body>
+    <script src="script.js" defer></script>
     <style>
+        #modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+        .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+        .close:hover, .close:focus { color: black; text-decoration: none; cursor: pointer; }
         body {
             background-image: url(ImagendeFondo.jpg);
             background-size: cover;
@@ -20,13 +22,15 @@
             object-position: center bottom; 
         }
     </style>
+</head>
+<body>
     <header>
         <nav>
             <ul>
                 <li><a href="#home">Inicio</a></li>
                 <li><a href="#products">Productos</a></li>
                 <li><a href="#contact">Contacto</a></li>
-                <li><a href="#cart" onclick="toggleCart()">Carrito (<span id="cart-count">0</span>)</a></li>
+                <li><a href="#cart" onclick="toggleCart(event)">Carrito (<span id="cart-count">0</span>)</a></li>
             </ul>
         </nav>
     </header>
@@ -39,57 +43,101 @@
                 <label for="category">Categoría:</label>
                 <select id="category" onchange="filterProducts()">
                     <option value="all">Todos</option>
-                    <option value="camisetas">Camisetas</option>
-                    <option value="pantalones">Pantalones</option>
-                    <option value="poleron corto">Poleron corto</option>
-                    <option value="vestidos">Vestidos</option>
+                    <option value="Poleron">Poleron</option>
+                    <option value="pantalon">Pantalon</option>
+                    <option value="Poleron corto">Poleron Corto</option>
+                    <option value="Vestido">Vestido</option>
                 </select>
             </div>
             <div class="gallery" id="product-list">
-                <div class="gallery-item" data-category="camisetas" onclick="showDetails(1)">
+                <div class="gallery-item" data-category="Poleron" onclick="showModal(1)">
                     <img src="Poleron.png" alt="Artículo 1">
-                    <p>Artículo $10.000 CLP - $90.000 CLP</p>
-                    <p> Tallas Disponibles S,M,X y XL</p>
-                    <button onclick="addToCart(event, 'Artículo 1', 20, 'Esta es una camiseta de algodón de alta calidad')">Agregar al carrito</button>
+                    <p>Polerón $20</p>
+                    <p>Tallas Disponibles: S, M, L y XL</p>
+                    <button onclick="addToCart(event, 'Artículo 1', 20, 'Esta es un poleron de algodón de alta calidad')">Agregar al carrito</button>
                 </div>
-                <div class="gallery-item" data-category="pantalones" onclick="showDetails(2)">
+                <div class="gallery-item" data-category="pantalon" onclick="showModal(2)">
                     <img src="Pantalon.png" alt="Artículo 2">
-                    <p>Artículo $20.000 CLP - $90.000 CLP</p>
-                    <p> Tallas Disponibles S,M,X y XL</p>
+                    <p>Pantalón $25</p>
+                    <p>Tallas Disponibles: S, M, L y XL</p>
                     <button onclick="addToCart(event, 'Artículo 2', 25, 'Este es un pantalón de mezclilla cómodo y moderno')">Agregar al carrito</button>
                 </div>
-                <div class="gallery-item" data-category="poleron corto" onclick="showDetails(3)">
+                <div class="gallery-item" data-category="Poleron corto" onclick="showModal(3)">
                     <img src="Poleroncorto.png" alt="Artículo 3">
-                    <p>Artículo $25.000 CLP - $75.000 CLP</p>
-                    <p> Tallas Disponibles S,M,X y XL</p>
-                    <button onclick="addToCart(event, 'Artículo 3', 30, 'Esta es un poleron corto para cualquier ocasión')">Agregar al carrito</button>
+                    <p>Polerón Corto $35</p>
+                    <p>Tallas Disponibles: S, M, L y XL</p>
+                    <button onclick="addToCart(event, 'Artículo 3', 30, 'Este es un polerón corto para cualquier ocasión')">Agregar al carrito</button>
                 </div>
-                <div class="gallery-item" data-category="vestidos" onclick="showDetails(4)">
+                <div class="gallery-item" data-category="Vestido" onclick="showModal(4)">
                     <img src="Vestido.png" alt="Artículo 4">
-                    <p>Artículo $40.000 CLP - $150.000 CLP </p>
-                    <p> Tallas Disponibles S,M,X y XL</p>
+                    <p>Vestido $35</p>
+                    <p>Tallas Disponibles: S, M, L y XL</p>
                     <button onclick="addToCart(event, 'Artículo 4', 35, 'Este es un vestido de temporada cómodo y fresco')">Agregar al carrito</button>
                 </div>
             </div>
         </div>
-
-        <div id="contact">
-            <h2>Contacto</h2>
-            <form id="contact-form" onsubmit="return validateForm()">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Mensaje:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
     </main>
-    
-    <footer>
-        <p>© 2024 Tienda de Ropa Street Goth. Todos los derechos reservados.</p>
-    </footer>
+
+    <div id="contact">
+        <h2>Contacto</h2>
+        <form id="contact-form" onsubmit="return validateForm(event)">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required placeholder="Ingresa tu nombre">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Ingresa tu correo electrónico">
+            </div>
+            <div class="form-group">
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message" required placeholder="Escribe tu mensaje aquí"></textarea>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('contact-form').onsubmit = function(event) {
+                        return validateForm(event);
+                    };
+                });
+                
+                function validateForm(event) {
+                    event.preventDefault(); // Prevenir el envío por defecto
+                
+                    // Validación del nombre
+                    var name = document.getElementById('name').value;
+                    if (!name.trim()) {
+                        alert('Por favor, ingresa tu nombre.');
+                        return false;
+                    }
+                
+                    // Validación del email
+                    var email = document.getElementById('email').value;
+                    if (!validateEmail(email)) {
+                        alert('Por favor, ingresa un correo electrónico válido.');
+                        return false;
+                    }
+                
+                    // Validación del mensaje
+                    var message = document.getElementById('message').value;
+                    if (!message.trim()) {
+                        alert('Por favor, escribe tu mensaje.');
+                        return false;
+                    }
+                
+                    // Aquí puedes agregar el código para enviar el formulario (AJAX, Fetch API, etc.)
+                    // Por ahora, solo mostraremos un mensaje de éxito
+                    alert('¡Formulario enviado con éxito!');
+                    return true;
+                }
+                
+                function validateEmail(email) {
+                    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return re.test(String(email).toLowerCase());
+                }
+            </script>
+            <button type="submit">Enviar</button>
+        </form>
+    </div> 
 
     <!-- Modal -->
     <div id="modal" class="modal">
@@ -107,9 +155,12 @@
             <div id="cart-items"></div>
             <p id="cart-total"></p>
             <button onclick="checkout()">Realizar Pedido</button>
+            <button onclick="clearCart()">Vaciar Carrito</button>
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <footer>
+        <p>© 2024 Tienda de Ropa Street Goth. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

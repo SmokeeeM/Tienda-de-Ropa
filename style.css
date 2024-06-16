@@ -61,6 +61,14 @@ h1 {
 
 .filters {
     margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+
 }
 
 .gallery {
@@ -111,6 +119,8 @@ h1 {
 
 #contact {
     margin-bottom: 40px;
+    color: white;
+    text-align: center;
     
 }
 
@@ -121,6 +131,7 @@ h1 {
     gap: 10px;
     padding: 20px;
     border-radius: 5px;
+    box-shadow: #000000;
 }
 
 #contact-form label {
@@ -227,5 +238,5 @@ footer {
     background-color: #2f2f2f;
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 40%;
 }

@@ -1,8 +1,8 @@
 function showDetails(itemId) {
     let details = {
-        1: "Detalles del Artículo 1: Esta es una camiseta de algodón de alta calidad.",
+        1: "Detalles del Artículo 1: Esta es un poleron de algodón de alta calidad.",
         2: "Detalles del Artículo 2: Este es un pantalón de mezclilla cómodo y moderno.",
-        3: "Detalles del Artículo 3: Esta es un poleron corto para cualquier ocasión.",
+        3: "Detalles del Artículo 3: Este es un poleron corto para cualquier ocasión.",
         4: "Detalles del Artículo 4: Este es un vestido de temporada cómodo y fresco."
     };
     document.getElementById("modal-text").innerText = details[itemId];
@@ -111,3 +111,29 @@ function filterProducts() {
         }
     });
 }
+
+function calculateTotalPrice(price, quantity) {
+    return price * quantity;
+}
+
+function displayCartItems() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartItems = document.getElementById("cart-items");
+    cartItems.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, index) => {
+        let itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
+        itemDiv.innerHTML = `
+            <p>${item.name} - $${item.price} x ${item.quantity}</p>
+            <p>${item.description}</p>
+            <button onclick="removeFromCart(${index})">Eliminar</button>
+            <button onclick="updateQuantity(${index})">Actualizar cantidad</button>
+        `;
+        cartItems.appendChild(itemDiv);
+        total += item.price * item.quantity;
+    });
+    document.getElementById("cart-total").innerText = `Total: $${total}`;
+}
+
+loadCartItems();
