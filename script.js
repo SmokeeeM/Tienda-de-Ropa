@@ -1,9 +1,8 @@
-
 function showDetails(itemId) {
     let details = {
         1: "Detalles del Artículo 1: Esta es una camiseta de algodón de alta calidad.",
         2: "Detalles del Artículo 2: Este es un pantalón de mezclilla cómodo y moderno.",
-        3: "Detalles del Artículo 3: Esta es un poleron corto  para cualquier ocasión.",
+        3: "Detalles del Artículo 3: Esta es un poleron corto para cualquier ocasión.",
         4: "Detalles del Artículo 4: Este es un vestido de temporada cómodo y fresco."
     };
     document.getElementById("modal-text").innerText = details[itemId];
@@ -14,13 +13,23 @@ function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
 
-function addToCart(event, itemName, price) {
+function addToCart(event, itemName, price, description) {
     event.stopPropagation();
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({ name: itemName, price: price });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    alert(`${itemName} ha sido agregado al carrito.`);
+    let quantity = prompt("¿Cuántos quieres agregar al carrito?", "1");
+    if (quantity != null) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let itemIndex = cart.findIndex(item => item.name === itemName);
+        if (itemIndex > -1) {
+            // El producto ya está en el carrito, actualiza la cantidad
+            cart[itemIndex].quantity += Number(quantity);
+        } else {
+            // El producto no está en el carrito, añádelo
+            cart.push({ name: itemName, price: price, quantity: Number(quantity), description: description });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert(`${itemName} ha sido agregado al carrito.`);
+    }
 }
 
 function updateCartCount() {
@@ -37,11 +46,13 @@ function loadCartItems() {
         let itemDiv = document.createElement("div");
         itemDiv.classList.add("cart-item");
         itemDiv.innerHTML = `
-            <p>${item.name} - $${item.price}</p>
+            <p>${item.name} - $${item.price} x ${item.quantity}</p>
+            <p>${item.description}</p>
             <button onclick="removeFromCart(${index})">Eliminar</button>
+            <button onclick="updateQuantity(${index})">Actualizar cantidad</button>
         `;
         cartItems.appendChild(itemDiv);
-        total += item.price;
+        total += item.price * item.quantity;
     });
     document.getElementById("cart-total").innerText = `Total: $${total}`;
 }
@@ -52,6 +63,16 @@ function removeFromCart(index) {
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     loadCartItems();
+}
+
+function updateQuantity(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let quantity = prompt("Ingresa la nueva cantidad", cart[index].quantity);
+    if (quantity != null) {
+        cart[index].quantity = Number(quantity);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCartItems();
+    }
 }
 
 function toggleCart() {

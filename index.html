@@ -10,7 +10,7 @@
 <body>
     <style>
         body {
-            background-image: url("https://cdn.pixabay.com/photo/2020/02/17/06/52/extraterrestrial-4855614_1280.jpg");
+            background-image: url(ImagendeFondo.jpg);
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -47,28 +47,28 @@
             </div>
             <div class="gallery" id="product-list">
                 <div class="gallery-item" data-category="camisetas" onclick="showDetails(1)">
-                    <img src="https://img.ltwebstatic.com/images3_pi/2023/10/31/13/1698716955a595583bf7210c30ea2c423ae5405f5d.webp" alt="Artículo 1">
+                    <img src="Poleron.png" alt="Artículo 1">
                     <p>Artículo $10.000 CLP - $90.000 CLP</p>
                     <p> Tallas Disponibles S,M,X y XL</p>
-                    <button onclick="addToCart(event, 'Artículo 1', 20)">Agregar al carrito</button>
+                    <button onclick="addToCart(event, 'Artículo 1', 20, 'Esta es una camiseta de algodón de alta calidad')">Agregar al carrito</button>
                 </div>
                 <div class="gallery-item" data-category="pantalones" onclick="showDetails(2)">
-                    <img src="https://vampirefreaks.com/cdn/shop/files/emo-pants_1de6f1f2-e80a-4a61-8b00-b8a65465ae0e.jpg?v=1715741195&width=1800" alt="Artículo 2">
+                    <img src="Pantalon.png" alt="Artículo 2">
                     <p>Artículo $20.000 CLP - $90.000 CLP</p>
                     <p> Tallas Disponibles S,M,X y XL</p>
-                    <button onclick="addToCart(event, 'Artículo 2', 25)">Agregar al carrito</button>
+                    <button onclick="addToCart(event, 'Artículo 2', 25, 'Este es un pantalón de mezclilla cómodo y moderno')">Agregar al carrito</button>
                 </div>
                 <div class="gallery-item" data-category="poleron corto" onclick="showDetails(3)">
-                    <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTPl14WzKaei-QS5XtEdbirPVwH98vSEXrdYIdPbLk0_0bNv-CTWbTHHDgwfUA9QlmgwGYxVi_OMQwlXmCRicVcz_GlpaoPMCeI-WvlzKu2Df913C-MoPza&usqp=CAE" alt="Artículo 3">
+                    <img src="Poleroncorto.png" alt="Artículo 3">
                     <p>Artículo $25.000 CLP - $75.000 CLP</p>
                     <p> Tallas Disponibles S,M,X y XL</p>
-                    <button onclick="addToCart(event, 'Artículo 3', 30)">Agregar al carrito</button>
+                    <button onclick="addToCart(event, 'Artículo 3', 30, 'Esta es un poleron corto para cualquier ocasión')">Agregar al carrito</button>
                 </div>
                 <div class="gallery-item" data-category="vestidos" onclick="showDetails(4)">
-                    <img src="https://vampirefreaks.com/cdn/shop/files/split-dress.jpg?v=1691172069&width=1800"Artículo 4>
+                    <img src="Vestido.png" alt="Artículo 4">
                     <p>Artículo $40.000 CLP - $150.000 CLP </p>
                     <p> Tallas Disponibles S,M,X y XL</p>
-                    <button onclick="addToCart(event, 'Artículo 4', 35)">Agregar al carrito</button>
+                    <button onclick="addToCart(event, 'Artículo 4', 35, 'Este es un vestido de temporada cómodo y fresco')">Agregar al carrito</button>
                 </div>
             </div>
         </div>
@@ -88,13 +88,13 @@
     </main>
     
     <footer>
-        <p>&copy; 2024 Tienda de Ropa Street Goth. Todos los derechos reservados.</p>
+        <p>© 2024 Tienda de Ropa Street Goth. Todos los derechos reservados.</p>
     </footer>
 
     <!-- Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeModal()">×</span>
             <p id="modal-text"></p>
         </div>
     </div>
@@ -102,7 +102,7 @@
     <!-- Carrito -->
     <div id="cart" class="cart">
         <div class="cart-content">
-            <span class="close" onclick="toggleCart()">&times;</span>
+            <span class="close" onclick="toggleCart()">×</span>
             <h2>Carrito de Compras</h2>
             <div id="cart-items"></div>
             <p id="cart-total"></p>
