@@ -1,3 +1,4 @@
+
 function showDetails(itemId) {
     let details = {
         1: "Detalles del Artículo 1: Esta es un poleron de algodón de alta calidad.",
@@ -16,25 +17,28 @@ function closeModal() {
 function addToCart(event, itemName, price, description) {
     event.stopPropagation();
     let quantity = prompt("¿Cuántos quieres agregar al carrito?", "1");
-    if (quantity != null) {
+    if (quantity != null && !isNaN(quantity)) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         let itemIndex = cart.findIndex(item => item.name === itemName);
         if (itemIndex > -1) {
-            // El producto ya está en el carrito, actualiza la cantidad
             cart[itemIndex].quantity += Number(quantity);
         } else {
-            // El producto no está en el carrito, añádelo
             cart.push({ name: itemName, price: price, quantity: Number(quantity), description: description });
         }
         localStorage.setItem("cart", JSON.stringify(cart));
         updateCartCount();
+        loadCartItems(); // Carga los artículos del carrito
         alert(`${itemName} ha sido agregado al carrito.`);
     }
 }
 
 function updateCartCount() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    document.getElementById("cart-count").innerText = cart.length;
+    let totalQuantity = 0;
+    for (let i = 0; i < cart.length; i++) {
+        totalQuantity += cart[i].quantity;
+    }
+    document.getElementById("cart-count").innerText = totalQuantity;
 }
 
 function loadCartItems() {
@@ -68,7 +72,7 @@ function removeFromCart(index) {
 function updateQuantity(index) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let quantity = prompt("Ingresa la nueva cantidad", cart[index].quantity);
-    if (quantity != null) {
+    if (quantity != null && !isNaN(quantity)) {
         cart[index].quantity = Number(quantity);
         localStorage.setItem("cart", JSON.stringify(cart));
         loadCartItems();
@@ -96,8 +100,18 @@ function validateForm() {
         alert("Todos los campos son obligatorios.");
         return false;
     }
+    if (!validateEmail(email)) {
+        alert("Por favor, ingresa un correo electrónico válido.");
+        return false;
+    }
+    saveContact(name, email, message);
     alert("¡Gracias por tu mensaje!");
     return true;
+}
+
+function validateEmail(email) {
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
 }
 
 function filterProducts() {
@@ -135,5 +149,48 @@ function displayCartItems() {
     });
     document.getElementById("cart-total").innerText = `Total: $${total}`;
 }
+function clearCart() {
+    // Vacía el carrito de compras
+    localStorage.removeItem("cart");
+    // Actualiza el contador del carrito y los artículos del carrito
+    updateCartCount();
+    loadCartItems();
+}
+
+// Función para guardar un contacto
+function saveContact(name, email, message) {
+    // Creación del objeto de contacto
+    let contact = {
+        name: name,
+        email: email,
+        message: message
+    };
+
+    // Guardado del contacto en el almacenamiento local
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    contacts.push(contact);
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+
+// Función para obtener todos los contactos
+function getContacts() {
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    return contacts;
+}
+
+// Función para actualizar un contacto
+function updateContact(index, newContact) {
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    contacts[index] = newContact;
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+}
+
+// Función para eliminar un contacto
+function deleteContact(index) {
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    contacts.splice(index, 1);
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+}
 
 loadCartItems();
+updateCartCount(); // Actualiza el contador del carrito
