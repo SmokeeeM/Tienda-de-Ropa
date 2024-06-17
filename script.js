@@ -91,7 +91,8 @@ function checkout() {
     toggleCart();
 }
 
-function validateForm() {
+function validateForm(event) {
+    event.preventDefault(); // Agrega esta línea para prevenir el comportamiento predeterminado del formulario
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let message = document.getElementById("message").value;
@@ -104,7 +105,7 @@ function validateForm() {
         return false;
     }
     saveContact(name, email, message);
-    alert("¡Gracias por tu mensaje!");
+    alert("¡Gracias por tu mensaje! Gracias por preferirnos y contactarte con nosotros. A la brevedad te contactaremos por correo.");
     return true;
 }
 
@@ -193,3 +194,4 @@ function deleteContact(index) {
 
 loadCartItems();
 updateCartCount(); // Actualiza el contador del carrito
+displayCartItems(); // Muestra los artículos del carrito

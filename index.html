@@ -1,106 +1,106 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Ropa Goth Street</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Inicio</a></li>
-                <li><a href="#products">Productos</a></li>
-                <li><a href="#contact">Contacto</a></li>
-                <li><a href="#cart" onclick="toggleCart(event)">Carrito (<span id="cart-count">0</span>)</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <div id="products">
-            <h2>Productos</h2>
-            <div class="filters">
-                <label for="category">Categoría:</label>
-                <select id="category" onchange="filterProducts()">
-                    <option value="all">Todos</option>
-                    <option value="Poleron">Poleron</option>
-                    <option value="pantalon">Pantalon</option>
-                    <option value="Poleron corto">Poleron Corto</option>
-                    <option value="Vestido">Vestido</option>
-                </select>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tienda de Ropa Goth Street</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#products">Productos</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                    <li><a href="#cart" onclick="toggleCart(event)">Carrito (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <div id="products">
+                <h2>Productos</h2>
+                <div class="filters">
+                    <label for="category">Categoría:</label>
+                    <select id="category" onchange="filterProducts()">
+                        <option value="all">Todos</option>
+                        <option value="Poleron">Poleron</option>
+                        <option value="pantalon">Pantalon</option>
+                        <option value="Poleron corto">Poleron Corto</option>
+                        <option value="Vestido">Vestido</option>
+                    </select>
+                </div>
+                <div class="gallery">
+                    <div class="gallery-item" data-category="Poleron" onclick="showDetails('1')">
+                        <img src="Poleron.png" alt="Artículo 1">
+                        <p>Polerón $20</p>
+                        <p>Tallas Disponibles: S, M, L y XL</p>
+                        <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 1', 20, 'Esta es un poleron de algodón de alta calidad')">Agregar al carrito</button>
+                    </div>
+                    <div class="gallery-item" data-category="pantalon" onclick="showDetails('2')">
+                        <img src="Pantalon.png" alt="Artículo 2">
+                        <p>Pantalón $25</p>
+                        <p>Tallas Disponibles: S, M, L y XL</p>
+                        <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 2', 25, 'Este es un pantalón de mezclilla cómodo y moderno')">Agregar al carrito</button>
+                    </div>
+                    <div class="gallery-item" data-category="Poleron corto" onclick="showDetails('3')">
+                        <img src="Poleroncorto.png" alt="Artículo 3">
+                        <p>Polerón Corto $30</p>
+                        <p>Tallas Disponibles: S, M, L y XL</p>
+                        <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 3', 30, 'Este es un poleron corto para cualquier ocasión')">Agregar al carrito</button>
+                    </div>
+                    <div class="gallery-item" data-category="Vestido" onclick="showDetails('4')">
+                        <img src="Vestido.png" alt="Artículo 4">
+                        <p>Vestido $35</p>
+                        <p>Tallas Disponibles: S, M, L y XL</p>
+                        <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 4', 35, 'Este es un vestido de temporada cómodo y fresco')">Agregar al carrito</button>
+                    </div>
+                </div>
             </div>
-            <div class="gallery">
-                <div class="gallery-item" data-category="Poleron" onclick="showDetails('1')">
-                    <img src="Poleron.png" alt="Artículo 1">
-                    <p>Polerón $20</p>
-                    <p>Tallas Disponibles: S, M, L y XL</p>
-                    <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 1', 20, 'Esta es un poleron de algodón de alta calidad')">Agregar al carrito</button>
+        </main>
+
+        <div id="contact">
+            <h2>Contacto</h2>
+            <form id="contact-form" onsubmit="event.preventDefault(); validateForm(event);">
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required placeholder="Ingresa tu nombre">
                 </div>
-                <div class="gallery-item" data-category="pantalon" onclick="showDetails('2')">
-                    <img src="Pantalon.png" alt="Artículo 2">
-                    <p>Pantalón $25</p>
-                    <p>Tallas Disponibles: S, M, L y XL</p>
-                    <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 2', 25, 'Este es un pantalón de mezclilla cómodo y moderno')">Agregar al carrito</button>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="Ingresa tu correo electrónico">
                 </div>
-                <div class="gallery-item" data-category="Poleron corto" onclick="showDetails('3')">
-                    <img src="Poleroncorto.png" alt="Artículo 3">
-                    <p>Polerón Corto $30</p>
-                    <p>Tallas Disponibles: S, M, L y XL</p>
-                    <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 3', 30, 'Este es un poleron corto para cualquier ocasión')">Agregar al carrito</button>
+                <div class="form-group">
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" name="message" required placeholder="Escribe tu mensaje aquí"></textarea>
                 </div>
-                <div class="gallery-item" data-category="Vestido" onclick="showDetails('4')">
-                    <img src="Vestido.png" alt="Artículo 4">
-                    <p>Vestido $35</p>
-                    <p>Tallas Disponibles: S, M, L y XL</p>
-                    <button onclick="event.stopPropagation(); addToCart(event, 'Artículo 4', 35, 'Este es un vestido de temporada cómodo y fresco')">Agregar al carrito</button>
-                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div> 
+
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">×</span>
+                <p id="modal-text"></p>
             </div>
         </div>
-    </main>
 
-    <div id="contact">
-        <h2>Contacto</h2>
-        <form id="contact-form">
-            <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" required placeholder="Ingresa tu nombre">
+        <!-- Carrito -->
+        <div id="cart" class="cart">
+            <div class="cart-content">
+                <span class="close" onclick="toggleCart()">×</span>
+                <h2>Carrito de Compras</h2>
+                <div id="cart-items"></div>
+                <p id="cart-total"></p>
+                <button onclick="checkout()">Realizar Pedido</button>
+                <button onclick="clearCart()">Vaciar Carrito</button>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required placeholder="Ingresa tu correo electrónico">
-            </div>
-            <div class="form-group">
-                <label for="message">Mensaje:</label>
-                <textarea id="message" name="message" required placeholder="Escribe tu mensaje aquí"></textarea>
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
-    </div> 
-
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">×</span>
-            <p id="modal-text"></p>
         </div>
-    </div>
 
-    <!-- Carrito -->
-    <div id="cart" class="cart">
-        <div class="cart-content">
-            <span class="close" onclick="toggleCart()">×</span>
-            <h2>Carrito de Compras</h2>
-            <div id="cart-items"></div>
-            <p id="cart-total"></p>
-            <button onclick="checkout()">Realizar Pedido</button>
-            <button onclick="clearCart()">Vaciar Carrito</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>© 2024 Tienda de Ropa Street Goth. Todos los derechos reservados.</p>
-    </footer>
+        <footer>
+            <p>© 2024 Tienda de Ropa Street Goth. Todos los derechos reservados.</p>
+        </footer>
